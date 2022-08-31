@@ -3,11 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "SInteractionComponent.h"
 #include "GameFramework/Character.h"
 #include "SCharacter.generated.h"
 
 class USpringArmComponent;
 class UCameraComponent;
+class USInteractionComponent;
+class UAnimMontage; 
 
 UCLASS()
 class ACTIONROGUELIKE_API ASCharacter : public ACharacter
@@ -19,23 +22,41 @@ public:
 	ASCharacter();
 
 protected:
+	FTimerHandle TimerHandle_PrimaryAttack;
 
+	UPROPERTY(EditAnywhere, Category = "Attack")
+	UAnimMontage* AttackAnim;
+
+	UPROPERTY(EditAnywhere, Category = "Attack")
+	TSubclassOf<AActor> ProjectileClass ;
+	
 	UPROPERTY(VisibleAnywhere)
 	USpringArmComponent* SpringArmComp;
 	
 	UPROPERTY(VisibleAnywhere)
 	UCameraComponent* CameraComp;
 
+	UPROPERTY(VisibleAnywhere)
+	USInteractionComponent* InteractionComp;
+
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 	void MoveForward(float value);
+	void MoveRight(float value);
+
+	void PrimaryInteract();
+	void PrimaryAttack();
+	void PrimaryAttack_TimeElapsed();
 
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 };
+
+
