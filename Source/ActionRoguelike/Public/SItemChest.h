@@ -19,6 +19,7 @@ public:
 	UPROPERTY(EditAnywhere)
 	float TargetPitch;
 
+
 	void Interact_Implementation(APawn* InstigatorPawn);
 
 protected:
@@ -26,7 +27,7 @@ protected:
 	UPROPERTY(VisibleAnywhere)
 	UStaticMeshComponent* BaseMesh;
 
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly)
 	UStaticMeshComponent* LidMesh;
 
 	// Called when the game starts or when spawned
